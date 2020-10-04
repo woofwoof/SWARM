@@ -1,0 +1,145 @@
+; Mine Detecting Swarming Robots!
+; (c) Dr. Timothy Barker, (2013-2020)
+
+
+; mostly uses a load of global variables to keep track of events etc. (not great practice but it works!)
+globals [dead-turtle-timer dead-turtle-x dead-turtle-y mine-present i num-turtles friend1 friend2 friend1-neighbors friend2-neighbors number-mines]
+
+; deloyment of swarm bots each having very basic behaviour but with interesting emergent dynamics?
+to deploy
+  clear-turtles
+
+  ; TOTAL number of bots!!!
+  set num-turtles 16
+
+  create-turtles num-turtles
+  reset-ticks
+  random-seed new-seed
+
+  ;; deploy bots
+  spread
+
+end
+
+to spread
+
+  set i 0
+  ask turtles [
+
+    ;; orient bots radially in one circle
+    set heading (i / num-turtles) * 360
+
+    set i i + 1
+
+    ;; deploy bots and move forward
+    if (i <= num-turtles) [
+      fd 6 ]
+
+  ]
+
+  tick
+
+end
+
+
+; friend with dying bot
+to friend
+
+
+   set friend1 self
+   set friend2 0
+
+   repeat num-turtles [
+
+   ;; as long as linking conditions are met (no dead bot and not linked to self) keep linking
+   linkup
+
+      set friend2 friend2 + 1
+
+   ]
+
+   die
+  
+end
+
+; turn all bots (upon mine detection)
+to linkup
+
+  ; if not linking to self and both bots exist
+  if not (friend1 = turtle friend2) and not (friend1 = nobody) and not (turtle friend2 = nobody) [
+
+    ; turtle turns towards dying one
+    ask turtle friend2 [
+        facexy dead-turtle-x dead-turtle-y]
+   ]
+
+end
+
+
+; send those bots on their way!
+to march
+
+  ask turtles [
+
+    if check-mine [
+
+      ; all bots are friended with a dying bot
+      friend
+
+     ]
+    ; creep forward
+    fd 1
+  ]
+
+  tick
+end
+
+
+;; bring all bots back to base
+to retreat
+  
+  ask turtles [
+  facexy 0 0
+  fd 1
+  ]
+  tick
+end
+
+
+;; set up random mine locations (red squares) CLUSTERS!
+to mine
+  clear-all
+  let targetminex random-pxcor
+  let targetminey random-pycor
+
+  ;; NUMBER of mines!!!
+  repeat 30 [
+     let targetminex2 targetminex + random 30
+     let targetminey2 targetminey + random 30
+     if (abs (targetminex2) < 32) and (abs (targetminey2) < 32) [
+       ask patch targetminex2 targetminey2 [
+     set pcolor red
+     ]]]
+
+end
+
+
+;; report true if the square at the current bot is red ie. its on an mine!!!
+to-report check-mine
+
+  if not (pcolor = red) [
+      report false
+  ]
+
+  if pcolor = red [
+      set dead-turtle-x xcor
+      set dead-turtle-y ycor
+
+
+      repeat 30 [
+      set pcolor white
+      set pcolor black ]
+
+      report true
+      ]
+end
