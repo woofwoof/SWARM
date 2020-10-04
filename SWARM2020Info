@@ -1,0 +1,23 @@
+WHAT IS IT?
+The original model provided an insight into very simple swarm behaviours derived from a metaphor of (and inspired by) bees pollinating flowers. This version though indicates the desired use case of swarms of robots being used to detect landmines.
+HOW IT WORKS
+Currently ‘bots’ start at the central origin in a circle formation. All bots carry on about their business until a mine is encountered by anyone of them.
+When a bot lands on a ‘mine’ (the red patch) it activates the mine which explodes alas so does the bot since these mines are deadly.
+However, the bots which the dead one talks to hear its death knell and come running to the rescue.
+HOW TO USE IT
+Use ‘Zoom’ so that you’re comfortable with the size of the ‘theatre of operation’.
+Slow ‘ticks’ to a very slow rate!
+Press the ‘mine’ button to randomly distribute the mines around the theatre of operation in clusters to your liking!
+Press the ‘deploy’ button to place the bots at the centre of the theatre.
+Press ‘march’ to commence the exercise! (Press it again to stop the advance).
+Press ‘retreat’ to return the bots to base. (Press it again to stop the retreat).
+THINGS TO NOTICE
+Try different bots and mine setups. E.g. look for randomly created clusters of mines rather than just evenly scattered around the garden. Similarly, look at the different (emergent) layouts of bots.
+THINGS TO TRY
+Try to find which bot ‘layout’ (who talks to who) works best for the different mine ‘layouts’. That is, which gets the highest mine per bot score?
+EXTENDING THE MODEL
+Different bot formations could be added e.g. swarming in a group in the same direction and with different methods of designating the lines of communication i.e. deciding who talks to who.
+It may be possible to have an editor so that the user can draw mines on the screen or at least load interesting predefined ones?
+Likewise, it could be interesting to be able to save bot and/or mine formations of note.
+CREDITS AND REFERENCES
+(c) Dr Timothy Barker, (2013-2020)
